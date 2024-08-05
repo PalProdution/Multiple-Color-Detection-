@@ -63,4 +63,28 @@ while(1):
     contours, hierarchy = cv2.findContours(red_mask, 
                                            cv2.RETR_TREE, 
                                            cv2.CHAIN_APPROX_SIMPLE)
+      for pic, contour in enumerate(contours): 
+        area = cv2.contourArea(contour) 
+        if(area > 300): 
+            x, y, w, h = cv2.boundingRect(contour) 
+            imageFrame = cv2.rectangle(imageFrame, (x, y),  
+                                       (x + w, y + h),  
+                                       (0, 0, 255), 2) 
+              
+            cv2.putText(imageFrame, "Red Colour", (x, y), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, 
+                        (0, 0, 255))     
+  
+    # Creating contour to track green color 
+    contours, hierarchy = cv2.findContours(green_mask, 
+                                           cv2.RETR_TREE, 
+                                           cv2.CHAIN_APPROX_SIMPLE) 
+      
+    for pic, contour in enumerate(contours): 
+        area = cv2.contourArea(contour) 
+        if(area > 300): 
+            x, y, w, h = cv2.boundingRect(contour) 
+            imageFrame = cv2.rectangle(imageFrame, (x, y),  
+                                       (x + w, y + h), 
+                                       (0, 255, 0), 2)
   
