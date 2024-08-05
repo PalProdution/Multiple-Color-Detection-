@@ -87,4 +87,30 @@ while(1):
             imageFrame = cv2.rectangle(imageFrame, (x, y),  
                                        (x + w, y + h), 
                                        (0, 255, 0), 2)
+          cv2.putText(imageFrame, "Green Colour", (x, y), 
+                        cv2.FONT_HERSHEY_SIMPLEX,  
+                        1.0, (0, 255, 0)) 
+  
+    # Creating contour to track blue color 
+    contours, hierarchy = cv2.findContours(blue_mask, 
+                                           cv2.RETR_TREE, 
+                                           cv2.CHAIN_APPROX_SIMPLE) 
+    for pic, contour in enumerate(contours): 
+        area = cv2.contourArea(contour) 
+        if(area > 300): 
+            x, y, w, h = cv2.boundingRect(contour) 
+            imageFrame = cv2.rectangle(imageFrame, (x, y), 
+                                       (x + w, y + h), 
+                                       (255, 0, 0), 2) 
+              
+            cv2.putText(imageFrame, "Blue Colour", (x, y), 
+                        cv2.FONT_HERSHEY_SIMPLEX, 
+                        1.0, (255, 0, 0)) 
+              
+    # Program Termination 
+    cv2.imshow("Multiple Color Detection in Real-TIme", imageFrame) 
+    if cv2.waitKey(10) & 0xFF == ord('q'): 
+        cap.release() 
+        cv2.destroyAllWindows() 
+        break
   
